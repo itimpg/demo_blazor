@@ -1,0 +1,44 @@
+﻿<div>
+    <AuthorizeView>
+        <Authorized>
+            <label>@context.User.Identity.Name</label>
+
+            <AuthorizeView Roles="Admin" Context=SomeOtherName>
+                <label>You are an Admin</label>
+            </AuthorizeView>
+
+            <AuthorizeView Policy="CanAdd" Context=SomeOtherName>
+                <label>You has Add Permission</label>
+            </AuthorizeView>
+
+            <AuthorizeView Policy="CanEdit" Context=SomeOtherName>
+                <label>You has Edit Permission</label>
+            </AuthorizeView>
+
+            <button @onclick="(()=> HasPermission(context))">Check</button>
+            <a @onclick="Logout" class="btn btn-outline-secondary">Logout</a>
+        </Authorized>
+        <NotAuthorized>
+            <a href="login" class="btn-outline-secondary">Login</a>
+        </NotAuthorized>
+    </AuthorizeView>
+</div>
+
+@inject ILocalStorageService localStorage
+@inject AuthenticationStateProvider authenthicationStateProvider
+@inject NavigationManager navigationManager
+
+@code {
+    private async Task Logout()
+    {
+        await localStorage.RemoveItemAsync("authToken");
+        navigationManager.NavigateTo("/login");
+    }
+
+    private bool HasPermission(AuthenticationState state)
+    {
+        var a = state.User.Claims.Where(x => x.Type == "Permissions");
+
+        return true;
+    }
+}
