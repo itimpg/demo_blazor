@@ -1,4 +1,5 @@
 using Blazored.LocalStorage;
+using Blazored.Modal;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -25,6 +26,7 @@ builder.Services.AddSingleton<ILanguageSelectorViewModel, LanguageSelectorViewMo
 builder.Services.AddScoped<ILoginViewModel, LoginViewModel>();
 builder.Services.AddScoped<IUIHelper, UIHelper>();
 
+builder.Services.AddBlazoredModal();
 builder.Services.AddLocalization();
 var jsInterop = builder.Build().Services.GetRequiredService<IJSRuntime>();
 var appLanguage = await jsInterop.InvokeAsync<string>("appCulture.get");

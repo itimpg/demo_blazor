@@ -5,11 +5,11 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OFM.SellerPortal", "OFM.SellerPortal\OFM.SellerPortal.csproj", "{4480E36C-763D-4FA7-AB5E-B6C545AB5B63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OFM.SellerPortal.Tests", "OFM.SellerPortal.Tests\OFM.SellerPortal.Tests.csproj", "{EAD8240B-2BEB-48FC-BA1F-71BB2CAD2207}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OFM.SellerPortal.Tests", "OFM.SellerPortal.Tests\OFM.SellerPortal.Tests.csproj", "{EAD8240B-2BEB-48FC-BA1F-71BB2CAD2207}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unit Tests", "Unit Tests", "{8E313742-32EF-4AA0-8DFC-B8CFAE467D9C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OFM.SellerPortal.Shared", "OFM.SellerPortal.Shared\OFM.SellerPortal.Shared.csproj", "{CFD737BB-D204-40C7-95E3-5BC05A690EF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OFM.SellerPortal.Shared", "OFM.SellerPortal.Shared\OFM.SellerPortal.Shared.csproj", "{CFD737BB-D204-40C7-95E3-5BC05A690EF6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

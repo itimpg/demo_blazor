@@ -10,8 +10,6 @@
                 label: config.label,
                 data: config.data,
                 backgroundColor: config.backgroundColor,
-                borderColor: config.borderColor,
-                borderWidth: config.borderWidth,
             }]
         }
     });

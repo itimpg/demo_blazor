@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using OFM.SellerPortal.Enums;
 
 namespace OFM.SellerPortal.Models.Charts
 {

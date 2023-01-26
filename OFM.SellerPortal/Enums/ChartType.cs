@@ -1,6 +1,6 @@
 ﻿using Ardalis.SmartEnum;
 
-namespace OFM.SellerPortal.Models.Charts
+namespace OFM.SellerPortal.Enums
 {
     public class ChartTypes : SmartEnum<ChartTypes, string>
     {

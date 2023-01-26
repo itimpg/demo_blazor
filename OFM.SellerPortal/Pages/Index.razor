@@ -3,6 +3,7 @@
 @using OFM.SellerPortal.Helpers.Interfaces;
 @using OFM.SellerPortal.Models.Charts;
 @using System.Drawing;
+@using OFM.SellerPortal.Enums;
 @inject IUIHelper _uiHelper;
 @inject IStringLocalizer<Resources.App> _localize;
 
@@ -10,10 +11,29 @@
     <canvas id="chartId" width="100" height="100"></canvas>
 </div>
 
+<button @onclick="ShowMessage">View Movies</button>
+
+<h1>@message</h1>
+
 @code {
+    private string message { get; set; } = "Hello World";
+
+    protected async Task ShowMessage()
+    {
+        await _uiHelper.ShowSuccessMessage("Success", "Yeah!");
+
+        message = "finish success";
+
+        _uiHelper.ShowErrorMessage("Error", "So Bad");
+
+        message = "finish error";
+    }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        var config = ChartConfig.Create("chartId", ChartTypes.Pie, new List<ChartDataItem>
+        if (firstRender)
+        {
+            var config = ChartConfig.Create("chartId", ChartTypes.Doughnut, new List<ChartDataItem>
         {
             new ChartDataItem ( "Developer", 34, Color.Red ),
             new ChartDataItem ( "QA", 12, Color.Blue ),
@@ -21,6 +41,7 @@
             new ChartDataItem ( "Manager", 8, Color.Yellow ),
         }, _localize["LoginPage.LabelPassword"]);
 
-        await _uiHelper.GenerateChart(config);
+            await _uiHelper.GenerateChart(config);
+        }
     }
 }
