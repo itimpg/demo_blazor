@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.JSInterop;
 using OFM.SellerPortal;
+using OFM.SellerPortal.Helpers;
+using OFM.SellerPortal.Helpers.Interfaces;
 using OFM.SellerPortal.Services;
 using OFM.SellerPortal.Services.Interfaces;
 using OFM.SellerPortal.ViewModels;
@@ -21,6 +23,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddSingleton<ILanguageSelectorViewModel, LanguageSelectorViewModel>();
 builder.Services.AddScoped<ILoginViewModel, LoginViewModel>();
+builder.Services.AddScoped<IUIHelper, UIHelper>();
 
 builder.Services.AddLocalization();
 var jsInterop = builder.Build().Services.GetRequiredService<IJSRuntime>();
@@ -36,7 +39,7 @@ builder.Services.AddBlazoredLocalStorageAsSingleton();
 
 builder.Services.AddOptions();
 builder.Services.AddAuthorizationCore(options =>
-{ 
+{
     options.AddPolicy("CanAdd", policy => policy.RequireClaim("canAdd", true.ToString()));
     options.AddPolicy("CanEdit", policy => policy.RequireClaim("canUpdate", true.ToString()));
 });
