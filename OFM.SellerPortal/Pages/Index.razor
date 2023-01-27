@@ -4,6 +4,9 @@
 @using OFM.SellerPortal.Models.Charts;
 @using System.Drawing;
 @using OFM.SellerPortal.Enums;
+@using OFM.SellerPortal.Models;
+@using System.Linq;
+
 @inject IUIHelper _uiHelper;
 @inject IStringLocalizer<Resources.App> _localize;
 
@@ -13,7 +16,28 @@
 
 <button @onclick="ShowMessage">View Movies</button>
 
-<h1>@message</h1>
+<div>
+    <EditForm Model="MyFormModel" OnValidSubmit="HandlValidSubmit">
+        <BlazoredTypeahead 
+            SearchMethod="SearchFilms"
+            MinimumLength="2"
+            @bind-Value="MyFormModel.SelectedFilm">
+            <SelectedTemplate Context="searchContext">
+                @searchContext.Name X
+            </SelectedTemplate>
+            <ResultTemplate Context="dataContext">
+                @dataContext.Name (@dataContext.Value)
+            </ResultTemplate>
+            <NotFoundTemplate Context="notFoundContext">
+                Sorry, there weren't any search results.
+            </NotFoundTemplate>
+        </BlazoredTypeahead>
+        <ValidationMessage For="@(() => MyFormModel.SelectedFilm)" />
+    </EditForm>
+</div>
+
+<h2>@message</h2> x
+<h2 style="color:red;">@MyFormModel.SelectedFilm?.Value</h2>
 
 @code {
     private string message { get; set; } = "Hello World";
@@ -24,24 +48,42 @@
 
         message = "finish success";
 
-        _uiHelper.ShowErrorMessage("Error", "So Bad");
+        await _uiHelper.ShowErrorMessage("Error", "So Badly");
 
         message = "finish error";
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
-        {
-            var config = ChartConfig.Create("chartId", ChartTypes.Doughnut, new List<ChartDataItem>
+        Films = new List<ChartDataItem>
         {
             new ChartDataItem ( "Developer", 34, Color.Red ),
             new ChartDataItem ( "QA", 12, Color.Blue ),
             new ChartDataItem ( "DevOps", 18 , Color.Green ),
             new ChartDataItem ( "Manager", 8, Color.Yellow ),
-        }, _localize["LoginPage.LabelPassword"]);
+        };
+
+        if (firstRender)
+        {
+            var config = ChartConfig.Create("chartId", ChartTypes.Bar, Films, _localize["LoginPage.LabelUsername"]);
 
             await _uiHelper.GenerateChart(config);
         }
+    }
+
+    public MyFormModel MyFormModel { get; set; } = new MyFormModel();
+
+    [Parameter]
+    public IEnumerable<ChartDataItem> Films { get; set; } = new List<ChartDataItem>();
+
+    private async Task<IEnumerable<ChartDataItem>> SearchFilms(string searchText)
+    {
+        await Task.Delay(20);
+        return await Task.FromResult(Films.Where(x => x.Name.ToLower().Contains(searchText.ToLower())).ToList());
+    }
+
+    private void HandlValidSubmit()
+    {
+
     }
 }
